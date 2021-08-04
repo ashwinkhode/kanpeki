@@ -1,0 +1,51 @@
+version: '3'
+
+services:
+  api:
+    container_name: 'fancy-todo-app-api'
+    restart: unless-stopped
+    # env_file:
+    #   "./api/.env"
+    build: api
+    ports:
+      - "4000:4000"
+    volumes:
+      - ./api:/usr/src/app
+      - /usr/src/app/node_modules
+    networks:
+      - nest-mongo
+      - react-nest
+    depends_on:
+      - mongo
+    expose:
+      - 4000
+  web:
+    container_name: 'fancy-todo-app-web'
+    restart: unless-stopped
+    # env_file:
+    #   "./web/.env"
+    build: web
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./web:/usr/src/app
+      - /usr/src/app/node_modules
+    networks:
+      - react-nest
+    depends_on:
+      - api
+  mongo:
+    container_name: 'fancy-todo-app-mongo'
+    restart: unless-stopped
+    image: mongo:4.2.0
+    volumes:
+      - mongodata:/data/db:rw
+    networks:
+      - nest-mongo
+    expose:
+      - 27017
+volumes:
+  mongodata:
+networks:
+  react-nest:
+  nest-mongo:
