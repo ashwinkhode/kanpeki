@@ -1,16 +1,8 @@
-node_modules
-*/node_modules
-*/dist
-
-# Lock File
-*/yarn.lock
-
-# Private
-*/certs
-
 # compiled output
 /dist
 /node_modules
+
+yarn.lock
 
 # Logs
 logs
