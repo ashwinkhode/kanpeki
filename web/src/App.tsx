@@ -16,7 +16,13 @@ function App() {
           </button>
         </p>
         <p>
-          Edit <code>App.tsx</code> and save to test HMR updates.
+          Edit <code>App.tsx</code> and save to test HMR updates. HMR currently
+          on
+          {' ' +
+            import.meta.env.VITE_PROXY_TYPE +
+            '://' +
+            import.meta.env.VITE_DOMAIN_NAME +
+            '.localhost'}
         </p>
         <p>
           <a
@@ -25,7 +31,7 @@ function App() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            Learn React
+            Learn React on{' '}
           </a>
           {' | '}
           <a

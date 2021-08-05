@@ -1,6 +1,5 @@
 # Create image based on the official Node image from dockerhub
 FROM node:lts-buster-slim
-
 # Create app directory
 WORKDIR /usr/src/app
 

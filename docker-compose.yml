@@ -2,7 +2,7 @@ version: '3'
 
 services:
   reverse-proxy:
-    container_name: 'fancy-reverse-proxy'
+    container_name: 'myapp-reverse-proxy'
     restart: unless-stopped
     # The official v2 Traefik docker image
     image: traefik:latest
@@ -27,7 +27,7 @@ services:
       - ./config/traefik.yml:/etc/traefik/config.yml:ro
       - ./config/certs:/etc/certs
   api:
-    container_name: 'fancy-todo-app-api'
+    container_name: 'myapp-api'
     restart: unless-stopped
     # env_file:
     #   "./api/.env"
@@ -42,10 +42,9 @@ services:
     expose:
       - 4000
   web:
-    container_name: 'fancy-todo-app-web'
+    container_name: 'myapp-web'
     restart: unless-stopped
-    # env_file:
-    #   "./web/.env"
+    env_file: .env
     build: web
     ports:
       - "3000:3000"
@@ -54,10 +53,10 @@ services:
       - /usr/src/app/node_modules
     labels:
       - 'traefik.enable=true'
-      - 'traefik.http.routers.web-http.rule=Host(`myapp.localhost`)'
+      - 'traefik.http.routers.web-http.rule=Host(`${VITE_DOMAIN_NAME}.localhost`)'
       - 'traefik.http.routers.web-http.service=web'
       - 'traefik.http.routers.web-http.entrypoints=web'
-      - 'traefik.http.routers.web-https.rule=Host(`myapp.localhost`)'
+      - 'traefik.http.routers.web-https.rule=Host(`${VITE_DOMAIN_NAME}.localhost`)'
       - 'traefik.http.routers.web-https.service=web'
       - 'traefik.http.routers.web-https.entrypoints=websecure'
       - 'traefik.http.routers.web-https.tls=true'
@@ -66,7 +65,7 @@ services:
     depends_on:
       - api
   mongo:
-    container_name: 'fancy-todo-app-mongo'
+    container_name: 'myapp-mongo'
     restart: unless-stopped
     image: mongo:4.2.0
     volumes:
