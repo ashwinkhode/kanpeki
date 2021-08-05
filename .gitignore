@@ -4,6 +4,7 @@ node_modules
 
 # Private
 */certs
+.env
 
 # compiled output
 /dist
