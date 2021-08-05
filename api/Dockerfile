@@ -1,5 +1,7 @@
 FROM node:lts-buster-slim
 
+RUN apt-get update && apt-get install -y procps
+
 # Create app directory
 WORKDIR /usr/src/app
 
@@ -11,4 +13,4 @@ COPY . /usr/src/app
 
 EXPOSE 4000
 
-CMD [ "npm", "run", "start" ]
+CMD [ "npm", "run", "start:dev" ]
