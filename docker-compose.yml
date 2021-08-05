@@ -14,7 +14,6 @@ services:
       - --providers.file.filename=/etc/traefik/config.yml
       - --entrypoints.web.address=:80
       - --entrypoints.websecure.address=:443
-      - --log.level=DEBUG
     ports:
       # The HTTP port
       - "80:80"
